@@ -14,6 +14,7 @@ Projeto DIY de um _word clock _em português (ainda em progresso).
 # Estrutura de diretórios
 
 - cad: Arquivos CAD e STL para impressão desenvolvidos em FreeCAD
+- embedded: Arquivos para código embarcado do relógio, feito em VSCode com PlatformIO para ESP8266
 
 
 # Instruções de montagem
