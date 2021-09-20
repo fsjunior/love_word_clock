@@ -4,21 +4,24 @@
 #include <Adafruit_NeoPixel.h>
 #include "types.hpp"
 #include <queue>
-
+#include "TransitionEffect.hpp"
 
 
 class LedEngine 
 {
 private:
     unsigned long time_delay;
+    unsigned fps;
     Adafruit_NeoPixel strip;
 
     std::queue<Frame> frame_buffer;
+    Frame last_frame;
 
     
 public:
-    LedEngine(int fps, int pin);
+    LedEngine(unsigned fps, int pin);
     void queue(const Frame& frame);
+    void queue(const Frame& frame, TransitionCallback transition_callback);
     void refresh();
 };
 

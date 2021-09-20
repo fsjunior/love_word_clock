@@ -1,7 +1,7 @@
 #include "LedEngine.hpp"
 
 
-LedEngine::LedEngine(int fps, int pin) : strip(Adafruit_NeoPixel(144, pin, NEO_RGB + NEO_KHZ800))
+LedEngine::LedEngine(unsigned fps, int pin):fps(fps), strip(Adafruit_NeoPixel(144, pin, NEO_RGB + NEO_KHZ800)), last_frame({{0}})
 {
 	time_delay = (1.0 / (float)fps) * 1000000.0;
 	strip.begin();
@@ -11,8 +11,17 @@ LedEngine::LedEngine(int fps, int pin) : strip(Adafruit_NeoPixel(144, pin, NEO_R
 
 void LedEngine::queue(const Frame &frame)
 {
+	last_frame = frame;
 	frame_buffer.push(frame);
 }
+
+void LedEngine::queue(const Frame& frame, TransitionCallback transition_callback)
+{
+	QueueCallback q = [&](const Frame& frame) -> void {frame_buffer.push(frame);};
+	transition_callback(last_frame, frame, fps*3, q);
+	last_frame = frame;	
+}
+
 
 void LedEngine::refresh()
 {
@@ -23,6 +32,7 @@ void LedEngine::refresh()
 		return;
 
 	Frame &frame = frame_buffer.front();
+	
 
 	for (int i = 0; i < SCREEN_WIDTH; i++)
 	{
@@ -48,3 +58,5 @@ void LedEngine::refresh()
 	strip.show();
 	next_time = micros() + time_delay;
 }
+
+
