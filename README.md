@@ -1,24 +1,36 @@
-# word_clock
+# ❤️ Love Word Clock ❤️
 
-Projeto DIY de um _word clock _em português (ainda em progresso). 
+DIY project of a Word Clock in *portuguese*.
 
-![alt text](https://github.com/fsjunior/word_clock/blob/main/images/freecad_text_plate.png?raw=true)
+![Picture of the Word Clock over my table](https://github.com/fsjunior/word_clock/blob/main/images/clock.jpg?raw=true)
 
-# Material necessário
+This project was created as a gift to my girlfriend to celebrate our 7 years anniversary.
 
-- Moldura caixa alta 15x15: https://shopee.com.br/Moldura-Caixa-Alta-15x15-Preto-i.348086463.6879547278
-- ESP8266
-- Fita de LEDS WS2812B IP20 com 144 leds por metro
+Who said geeks can't be romantic?
 
 
-# Estrutura de diretórios
+# Features
 
-- cad: Arquivos CAD e STL para impressão desenvolvidos em FreeCAD
-- embedded: Arquivos para código embarcado do relógio, feito em VSCode com PlatformIO para ESP8266
+- Automagically connects itself to internet and fetch the current time;
+- Shows the clock;
+- Shows how long since I started to love Josi;
+- Cool fade effects between the displays;
 
 
-# Instruções de montagem
+# Necessary Material
+
+- Shadow Box 15cm x 15cm (for brazillian makers: [moldura caixa alta](https://shopee.com.br/Moldura-Caixa-Alta-15x15-Preto-i.348086463.6879547278)): ;
+- ESP8266;
+- Led Strip WS2812B IP20 with 144 leds per meter;
+- Hardware stuff (cables, soldering iron, resistors etc).
+
+
+# Directory structure
+
+- cad: Macro, CAD and STL files to print (created with [FreeCAD](https://www.freecadweb.org/));
+- embedded: Embedded software to the clock (created with VSCode and PlatformIO to ESP8266);
+
+
+# Assembly instructions
 
 TBD
-
-
