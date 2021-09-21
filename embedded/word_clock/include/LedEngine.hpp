@@ -3,7 +3,8 @@
 
 #include <Adafruit_NeoPixel.h>
 #include "types.hpp"
-#include <queue>
+#include <etl/queue.h>
+//#include <queue>
 #include "TransitionEffect.hpp"
 
 
@@ -14,14 +15,13 @@ private:
     unsigned fps;
     Adafruit_NeoPixel strip;
 
-    std::queue<Frame> frame_buffer;
+    etl::queue<Frame, 30> frame_buffer;
     Frame last_frame;
 
     
 public:
     LedEngine(unsigned fps, int pin);
-    void queue(const Frame& frame);
-    void queue(const Frame& frame, TransitionCallback transition_callback);
+    void queue(const Frame& frame, bool clear_buffer, TransitionCallback transition_callback);
     void refresh();
 };
 

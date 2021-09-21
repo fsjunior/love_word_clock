@@ -1,8 +1,8 @@
-#include "ClockManager.hpp"
+#include "ClockRenderer.hpp"
 #include <vector>
 #include <unordered_map>
 
-ClockManager::ClockManager(TextRenderer& text_renderer, NTPClient& ntp_client): text_renderer(text_renderer), ntp_client(ntp_client)
+ClockRenderer::ClockRenderer(TextRenderer& text_renderer): text_renderer(text_renderer)
 {
 }
 
@@ -35,19 +35,16 @@ std::unordered_map<int, Word> hours_map = {
 };
 
 
-void ClockManager::set_color(uint8_t r, uint8_t g, uint8_t b) {
+void ClockRenderer::set_color(uint8_t r, uint8_t g, uint8_t b) {
     color = ((uint32_t)g << 16) | ((uint32_t)r <<  8) | b;
 }
 
-void ClockManager::refresh()
+void ClockRenderer::refresh(int hours, int minutes)
 {
     std::vector<Word> words;
     static std::vector<Word> last_words;
 
-    auto hours = ntp_client.getHours();
     words.push_back(hours_map[hours]);
-
-    auto minutes = ntp_client.getMinutes();
 
     if(minutes < 5) {
         if(hours == 1)

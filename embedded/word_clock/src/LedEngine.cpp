@@ -9,16 +9,12 @@ LedEngine::LedEngine(unsigned fps, int pin):fps(fps), strip(Adafruit_NeoPixel(14
 	strip.show();
 }
 
-void LedEngine::queue(const Frame &frame)
+void LedEngine::queue(const Frame& frame, bool clear_buffer, TransitionCallback transition_callback)
 {
-	last_frame = frame;
-	frame_buffer.push(frame);
-}
-
-void LedEngine::queue(const Frame& frame, TransitionCallback transition_callback)
-{
+	if(clear_buffer)
+		frame_buffer.clear();
 	QueueCallback q = [&](const Frame& frame) -> void {frame_buffer.push(frame);};
-	transition_callback(last_frame, frame, fps*3, q);
+	transition_callback(last_frame, frame, fps, q);
 	last_frame = frame;	
 }
 
@@ -32,7 +28,6 @@ void LedEngine::refresh()
 		return;
 
 	Frame &frame = frame_buffer.front();
-	
 
 	for (int i = 0; i < SCREEN_WIDTH; i++)
 	{

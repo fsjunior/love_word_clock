@@ -677,5 +677,5 @@ void TextRenderer::queue_text(std::vector<Word>& words, uint32_t color)
 		for(unsigned j = 0 ; j < result[i].size(); j++)
 			result[i][j] *= color;
 
-	led_engine.queue(result, fade_transition);
+	led_engine.queue(result, true, fade_transition);
 }

@@ -10,7 +10,7 @@ typedef std::function<void(const Frame& frame)> QueueCallback;
 typedef std::function<void(const Frame& begin, const Frame& end, unsigned duration_in_frames, QueueCallback queue_callback)> TransitionCallback;
 
 
-void dummy_transition(const Frame& begin, const Frame& end, unsigned duration_in_frames, QueueCallback queue_callback);
+void no_transition(const Frame& begin, const Frame& end, unsigned duration_in_frames, QueueCallback queue_callback);
 
 void fade_transition(const Frame& begin, const Frame& end, unsigned duration_in_frames, QueueCallback queue_callback);
 

@@ -2,17 +2,15 @@
 #define __CLOCK_MANAGER__
 
 #include "TextRenderer.hpp"
-#include <NTPClient.h>
 
-class ClockManager
+class ClockRenderer
 {
 private:
     TextRenderer& text_renderer;
-    NTPClient& ntp_client;
     uint32_t color;
 public:
-    ClockManager(TextRenderer& text_renderer, NTPClient& ntp_client);
-    void refresh();
+    ClockRenderer(TextRenderer& text_renderer);
+    void refresh(int hours, int minutes);
 
     void set_color(uint8_t r, uint8_t g, uint8_t b);
 };
