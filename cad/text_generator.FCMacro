@@ -1,0 +1,45 @@
+import Draft
+from FreeCAD import Units
+
+chars = [
+	["D", "O", "Z", "E", "R", "O", "N", "Z", "E", "U", "M", "A"],
+	["D", "E", "Z", "E", "N", "O", "V", "E", "D", "U", "A", "S"],
+	["Q", "U", "A", "T", "O", "R", "Z", "E", "T", "R", "E", "S"],
+	["D", "E", "Z", "E", "S", "S", "E", "I", "S", "D", "I", "A"],
+	["D", "E", "Z", "E", "S", "S", "E", "T", "E", "A", "S", "M"],
+	["C", "I", "N", "C", "O", "D", "E", "Z", "O", "I", "T", "O"],
+	["Q", "U", "A", "T", "R", "O", "H", "O", "R", "A", "S", "M"],
+	["E", "T", "R", "I", "N", "T", "A", "V", "I", "N", "T", "E"],
+	["C", "I", "N", "Q", "U", "E", "N", "T", "A", "N", "O", "S"],
+	["Q", "U", "A", "R", "E", "N", "T", "A", "D", "E", "Z", "E"],
+	["C", "I", "N", "C", "O", "Q", "U", "I", "N", "Z", "E", "S"],
+	["D", "O", "I", "S", "T", "R", "E", "Z", "E", "A", "M", "O"],
+]
+app = App.getDocument('text_plate')
+
+p = app .Spreadsheet001
+x_start = (p.width - p.char_strip_w) / 2
+y_start = p.height - (p.height - p.char_strip_h) / 2 - p.char_size_h
+
+char_size_padded_w = p.char_size_w + p.char_gap
+char_size_padded_h = p.char_size_h + p.char_gap
+
+body = app.getObject('Body')
+pad = app.getObject('Pad')
+
+shapes = []
+for row in range(12):
+	for col in range(12):
+		char = chars[row][col]
+		shape_string=Draft.makeShapeString(String=char,FontFile="/home/linuxer/workspace/word_clock/cad/bpmono.stencil-boldv2.ttf",Size=4.5,Tracking=0.0)
+		shape_string.Label = f"M{row}_{col}"
+		plm=FreeCAD.Placement()
+		plm.Base=FreeCAD.Vector(
+			x_start + col * char_size_padded_w,
+			y_start - row * char_size_padded_h,
+			2.0
+		)
+		plm.Rotation.Q=(0.0, 0.0, 0.0, 1.0)
+		shape_string.Placement=plm
+		shape_string.Support=None
+		Draft.autogroup(shape_string)
