@@ -21,7 +21,7 @@ private:
     
 public:
     LedEngine(unsigned fps, int pin);
-    void queue(const Frame& frame, bool clear_buffer, TransitionCallback transition_callback);
+    void queue(const Frame& frame, TransitionEffect transition_effect);
     void refresh();
 };
 

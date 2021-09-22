@@ -1,12 +1,15 @@
 #include "LedEngine.hpp"
 #include "TextRenderer.hpp"
 #include "ClockRenderer.hpp"
+#include "LoveRenderer.hpp"
 #include "Ticker.h"
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 #include <WiFiManager.h>
 
 #define DEBUG
+
+#define FPS 15
 
 /* NTP and Timezone stuff */
 WiFiUDP ntpUDP;
@@ -16,11 +19,12 @@ NTPClient ntp_client(ntpUDP, "br.pool.ntp.org", 3600*-3, 60000);
 
 /* Led stuff */
 #define PIN D2
-LedEngine led_engine(15, D2);
+LedEngine led_engine(FPS, D2);
 TextRenderer text_renderer(led_engine);
-ClockRenderer clock_manager(text_renderer);
+ClockRenderer clock_renderer(text_renderer);
+LoveRenderer love_renderer(text_renderer);
 
-void refresh_clockmanager() {
+void clock_manager() {
 
   static uint8_t hours = 0;
   static uint8_t minutes = 0;
@@ -34,10 +38,11 @@ void refresh_clockmanager() {
   if(hours == 24)
     hours = 0;
   
-  clock_manager.refresh(hours, minutes);
+  clock_renderer.refresh(hours, minutes);
+  //love_renderer.refresh(ntp_client.getEpochTime());
 }
 
-Ticker ticker(refresh_clockmanager, 1000, 0, MILLIS);
+Ticker ticker(clock_manager, 1000, 0, MILLIS);
 
 
 void setup() 
@@ -52,8 +57,12 @@ void setup()
   ntp_client.begin();
   ntp_client.update();  
 
-  clock_manager.set_color(100, 0, 255);
+  text_renderer.set_color(100, 0, 255);
+
+  love_renderer.start();
+
   ticker.start();
+  
 }
 
 

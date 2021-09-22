@@ -1,12 +1,15 @@
-#ifndef __CLOCK_RENDERER__
-#define __CLOCK_RENDERER__
+#ifndef __TEXT_RENDERER__
+#define __TEXT_RENDERER__
 
 #include "LedEngine.hpp"
 #include "types.hpp"
-#include <vector>
+#include <etl/vector.h>
+
+#define MAX_WORDS 6
 
 enum class Word {
     ZERO,
+    UM,
     UMA,
     DUAS,
     TRES,
@@ -21,6 +24,7 @@ enum class Word {
     DOZE,
     HORAS,
     HORA,
+    E_0, 
     E_1,
     CINCO_M,
     DEZ_M,
@@ -52,9 +56,12 @@ class TextRenderer
 {
 private:
     LedEngine& led_engine;
+    uint32_t color;
 public:
     TextRenderer(LedEngine& led_engine);
-    void queue_text(std::vector<Word>& words, uint32_t color);
+
+    void set_color(uint8_t r, uint8_t g, uint8_t b);
+    void queue_text(etl::vector<Word, MAX_WORDS>& words);
 };
 
-#endif /* __CLOCK_RENDERER__ */
+#endif /* __TEXT_RENDERER__ */

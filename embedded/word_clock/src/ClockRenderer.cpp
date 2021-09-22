@@ -1,12 +1,13 @@
 #include "ClockRenderer.hpp"
-#include <vector>
+#include <etl/vector.h>
 #include <unordered_map>
 
 ClockRenderer::ClockRenderer(TextRenderer& text_renderer): text_renderer(text_renderer)
 {
+
 }
 
-std::unordered_map<int, Word> hours_map = {
+const std::unordered_map<int, Word> hours_map = {
     {0, Word::ZERO},
     {1, Word::UMA},
     {2, Word::DUAS},
@@ -34,48 +35,62 @@ std::unordered_map<int, Word> hours_map = {
     {24, Word::ZERO},
 };
 
-
-void ClockRenderer::set_color(uint8_t r, uint8_t g, uint8_t b) {
-    color = ((uint32_t)g << 16) | ((uint32_t)r <<  8) | b;
-}
-
-void ClockRenderer::refresh(int hours, int minutes)
+void ClockRenderer::refresh(uint8_t hours, uint8_t minutes)
 {
-    std::vector<Word> words;
-    static std::vector<Word> last_words;
+    etl::vector<Word, MAX_WORDS> words;
+    static etl::vector<Word, MAX_WORDS> last_words;
 
-    words.push_back(hours_map[hours]);
+    words.push_back(hours_map.at(hours));
 
     if(minutes < 5) {
-        if(hours == 1)
+        if(hours == 1 || hours == 13)
             words.push_back(Word::HORA);
         else
             words.push_back(Word::HORAS);
-    } else if(minutes < 10)
-        words.insert(words.end(), {Word::E_1, Word::CINCO_M});
+    } else {
+        if(hours == 4 || hours == 16 || hours == 8 || hours == 20)
+            words.push_back(Word::E_1);
+        else 
+            words.push_back(Word::E_0);       
+    }
+
+    if(minutes < 5)
+        ;
+    else if(minutes < 10)
+        words.push_back(Word::CINCO_M);
     else if (minutes < 15)
-        words.insert(words.end(), {Word::E_1, Word::DEZ_M});
+        words.push_back(Word::DEZ_M);
     else if (minutes < 20)
-        words.insert(words.end(), {Word::E_1, Word::QUINZE});
+        words.push_back(Word::QUINZE);
     else if (minutes < 25)
-        words.insert(words.end(), {Word::E_1, Word::VINTE});
-    else if (minutes < 30)
-        words.insert(words.end(), {Word::E_1, Word::VINTE, Word::E_3, Word::CINCO_M});
-    else if (minutes < 35)
-        words.insert(words.end(), {Word::E_1, Word::TRINTA});
-    else if (minutes < 40)
-        words.insert(words.end(), {Word::E_1, Word::TRINTA, Word::E_2, Word::CINCO_M});
-    else if (minutes < 45)
-        words.insert(words.end(), {Word::E_1, Word::QUARENTA});
-    else if (minutes < 50)
-        words.insert(words.end(), {Word::E_1, Word::QUARENTA, Word::E_4, Word::CINCO_M});
-    else if (minutes < 55)
-        words.insert(words.end(), {Word::E_1, Word::CINQUENTA});
-    else 
-        words.insert(words.end(), {Word::E_1, Word::CINQUENTA, Word::E_4, Word::CINCO_M});                
+        words.push_back(Word::VINTE);
+    else if (minutes < 30) {
+        words.push_back(Word::VINTE);
+        words.push_back(Word::E_3);
+        words.push_back(Word::CINCO_M);
+    } else if (minutes < 35)
+        words.push_back(Word::TRINTA);
+    else if (minutes < 40){
+        words.push_back(Word::TRINTA);
+        words.push_back(Word::E_2);
+        words.push_back(Word::CINCO_M);
+    } else if (minutes < 45)
+        words.push_back(Word::QUARENTA);
+    else if (minutes < 50) {
+        words.push_back(Word::QUARENTA);
+        words.push_back(Word::E_4);
+        words.push_back(Word::CINCO_M);
+    } else if (minutes < 55)
+        words.push_back(Word::CINQUENTA);
+    else  {
+        words.push_back(Word::CINQUENTA);
+        words.push_back(Word::E_4);
+        words.push_back(Word::CINCO_M);
+    }
 
     if(words != last_words) {
-        text_renderer.queue_text(words, color);   
+        text_renderer.queue_text(words);   
         last_words = words;
     }
 }
+

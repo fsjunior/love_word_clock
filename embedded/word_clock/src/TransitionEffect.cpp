@@ -1,5 +1,4 @@
 #include "TransitionEffect.hpp"
-#include "HardwareSerial.h"
 
 
 void dummy_transition(const Frame& begin, const Frame& end, unsigned duration_in_frames, QueueCallback queue_callback)

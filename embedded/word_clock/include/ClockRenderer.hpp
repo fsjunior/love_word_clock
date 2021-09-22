@@ -1,5 +1,5 @@
-#ifndef __CLOCK_MANAGER__
-#define __CLOCK_MANAGER__
+#ifndef __CLOCK_RENDERER__
+#define __CLOCK_RENDERER__
 
 #include "TextRenderer.hpp"
 
@@ -7,13 +7,10 @@ class ClockRenderer
 {
 private:
     TextRenderer& text_renderer;
-    uint32_t color;
 public:
     ClockRenderer(TextRenderer& text_renderer);
-    void refresh(int hours, int minutes);
-
-    void set_color(uint8_t r, uint8_t g, uint8_t b);
+    void refresh(uint8_t hours, uint8_t minutes);
 };
 
 
-#endif /* __CLOCK_MANAGER__ */
+#endif /* __CLOCK_RENDERER__ */

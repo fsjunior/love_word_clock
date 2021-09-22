@@ -1,12 +1,12 @@
 #include "TextRenderer.hpp"
 
-#include <array>
+#include <etl/multi_array.h>
 #include "types.hpp"
 #include <unordered_map>
 
 
 namespace words {
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> zero = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> zero = {{
 		{0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -20,7 +20,21 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> uma = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> um = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}};	
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> uma = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -34,7 +48,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> duas = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> duas = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -48,7 +62,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> tres = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> tres = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
@@ -62,7 +76,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> quatro = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quatro = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -76,7 +90,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> cinco_h = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> cinco_h = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -90,7 +104,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> cinco_m = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> cinco_m = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -104,7 +118,7 @@ namespace words {
 		{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> seis = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> seis = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -118,7 +132,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> sete = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> sete = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -132,7 +146,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> oito = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> oito = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -146,7 +160,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> nove = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> nove = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -160,7 +174,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dez_h = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dez_h = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -174,7 +188,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dez_m = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dez_m = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -188,7 +202,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> e_4 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_4 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -202,7 +216,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> onze = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> onze = {{
 		{0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -216,7 +230,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> doze = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> doze = {{
 		{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -230,7 +244,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> hora = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> hora = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -244,7 +258,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> horas = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> horas = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -258,7 +272,21 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> e_1 = {{
+  	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_0 = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}};	
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_1 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -272,7 +300,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> vinte = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> vinte = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -286,7 +314,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> e_2 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_2 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -300,7 +328,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> trinta = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> trinta = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -314,7 +342,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> quarenta = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quarenta = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -328,7 +356,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> cinquenta = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> cinquenta = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -342,7 +370,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> e_3 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_3 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -356,7 +384,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> amo_1 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> amo_1 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -370,7 +398,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> amo_2 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> amo_2 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -384,7 +412,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> ha = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> ha = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -398,7 +426,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> anos = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> anos = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -412,7 +440,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> meses = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> meses = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -426,7 +454,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dias = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dias = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -440,7 +468,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> eu = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> eu = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -454,7 +482,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> te_1 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> te_1 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -468,7 +496,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> te_2 = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> te_2 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -482,7 +510,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dois = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dois = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -496,7 +524,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> treze = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> treze = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -510,7 +538,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> quatorze = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quatorze = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
@@ -524,7 +552,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> quinze = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quinze = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -538,7 +566,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dezesseis = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezesseis = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -552,7 +580,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dezessete = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezessete = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -566,7 +594,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dezoito = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezoito = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -580,7 +608,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH> dezenove = {{
+	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezenove = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -597,8 +625,9 @@ namespace words {
 };
 
 // Create an unordered_map of three strings (that map to strings)
-std::unordered_map<Word, std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDTH>> word_map = {
+const std::unordered_map<Word, etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT>> word_map = {
 	{Word::ZERO, words::zero},
+	{Word::UM, words::um},
 	{Word::UMA, words::uma},
 	{Word::DUAS, words::duas},
 	{Word::TRES, words::tres},
@@ -613,6 +642,7 @@ std::unordered_map<Word, std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDT
 	{Word::DOZE, words::doze},
 	{Word::HORAS, words::horas},
 	{Word::HORA, words::hora},
+  	{Word::E_0, words::e_0},
 	{Word::E_1, words::e_1},
 	{Word::CINCO_M, words::cinco_m},
 	{Word::DEZ_M, words::dez_m},
@@ -645,29 +675,18 @@ std::unordered_map<Word, std::array<std::array<char, SCREEN_HEIGHT>, SCREEN_WIDT
 
 TextRenderer::TextRenderer(LedEngine &led_engine) : led_engine(led_engine)
 {
-
 }
 
+void TextRenderer::set_color(uint8_t r, uint8_t g, uint8_t b) {
+    color = ((uint32_t)g << 16) | ((uint32_t)r <<  8) | b;
+}
 
-void TextRenderer::queue_text(std::vector<Word>& words, uint32_t color)
+void TextRenderer::queue_text(etl::vector<Word, MAX_WORDS>& words)
 {
-	Frame result = {{
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	}};	
+	Frame result = {{ 0	}};	
 
 	for(auto word : words ) {
-		auto& word_frame = word_map[word];
+		auto& word_frame = word_map.at(word);
 		for(unsigned i = 0; i < word_frame.size(); i++)
 			for(unsigned j = 0; j < word_frame[i].size(); j++)
 				result[i][j] |= word_frame[i][j];
@@ -677,5 +696,5 @@ void TextRenderer::queue_text(std::vector<Word>& words, uint32_t color)
 		for(unsigned j = 0 ; j < result[i].size(); j++)
 			result[i][j] *= color;
 
-	led_engine.queue(result, true, fade_transition);
+	led_engine.queue(result, fade_transition);
 }

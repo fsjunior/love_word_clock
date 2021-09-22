@@ -9,12 +9,11 @@ LedEngine::LedEngine(unsigned fps, int pin):fps(fps), strip(Adafruit_NeoPixel(14
 	strip.show();
 }
 
-void LedEngine::queue(const Frame& frame, bool clear_buffer, TransitionCallback transition_callback)
+void LedEngine::queue(const Frame& frame, TransitionEffect transition_effect)
 {
-	if(clear_buffer)
-		frame_buffer.clear();
+	frame_buffer.clear();
 	QueueCallback q = [&](const Frame& frame) -> void {frame_buffer.push(frame);};
-	transition_callback(last_frame, frame, fps, q);
+	transition_effect(last_frame, frame, fps, q);
 	last_frame = frame;	
 }
 
