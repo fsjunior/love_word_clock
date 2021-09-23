@@ -2,116 +2,91 @@
 #include <etl/vector.h>
 #include <unordered_map>
 
-LoveRenderer::LoveRenderer(TextRenderer& text_renderer): text_renderer(text_renderer)
+LoveRenderer::LoveRenderer(BitFrameRenderer& bitframe_renderer): bitframe_renderer(bitframe_renderer)
 {
 
 }
 
-const std::unordered_map<int, Word> number_map = {
-    {1, Word::UM},
-    {2, Word::DOIS},
-    {3, Word::TRES},
-    {4, Word::QUATRO},
-    {5, Word::CINCO_H},
-    {6, Word::SEIS},
-    {7, Word::SETE},
-    {8, Word::OITO},
-    {9, Word::NOVE},
-    {10, Word::DEZ_H},
-    {11, Word::ONZE},
-    {12, Word::DOZE},
-    {13, Word::TREZE},
-    {14, Word::QUATORZE},
-    {15, Word::QUINZE},
-    {16, Word::DEZESSEIS},
-    {17, Word::DEZESSETE},
-    {18, Word::DEZOITO},
-    {19, Word::DEZENOVE},
-    {20, Word::VINTE},
-    {30, Word::TRINTA},
-    {40, Word::QUARENTA},
-    {50, Word::CINQUENTA},
+const std::unordered_map<int, const BitFrame *> number_map = {
+    {1, &words::um},
+    {2, &words::dois},
+    {3, &words::tres},
+    {4, &words::quatro},
+    {5, &words::cinco_h},
+    {6, &words::seis},
+    {7, &words::sete},
+    {8, &words::oito},
+    {9, &words::nove},
+    {10, &words::dez_h},
+    {11, &words::onze},
+    {12, &words::doze},
+    {13, &words::treze},
+    {14, &words::quatorze},
+    {15, &words::quinze},
+    {16, &words::dezesseis},
+    {17, &words::dezessete},
+    {18, &words::dezoito},
+    {19, &words::dezenove},
+    {20, &words::vinte},
+    {30, &words::trinta},
+    {40, &words::quarenta},
+    {50, &words::cinquenta},
 };
 
-void number_to_words(int number, etl::vector<Word, MAX_WORDS>& words)
+void LoveRenderer::number_to_words(const int number, const BitFrame * singular, const BitFrame * plural)
 {
+    if(number == 0)
+        return;
+
     if(number < 20)
-        words.push_back(number_map.at(number));
+        queue.push(etl::make_pair<>(number_map.at(number), 0x0));
     else {
         int ten = (number / 10) * 10;
-        words.push_back(number_map.at(ten));
+        queue.push(etl::make_pair<>(number_map.at(ten), 0x0));
         int unit = number % ten;
         if(unit > 0) {
-            words.push_back(Word::E_0);
-            words.push_back(number_map.at(unit));
+            queue.push(etl::make_pair<>(&words::e_0, 0x0));
+            queue.push(etl::make_pair<>(number_map.at(unit), 0x0));
         }       
     }
+    if(number == 1)
+        queue.push(etl::make_pair<>(singular, 0x0));
+    else
+        queue.push(etl::make_pair<>(plural, 0x0));
 }
 
-void LoveRenderer::refresh(int epoch)
+void LoveRenderer::start(unsigned long epoch)
 {
-    etl::vector<Word, MAX_WORDS> words;
-    int diff = epoch - beggining;
-    int years = diff / 31556926;
-    int months = (diff - 31556926 * years) / 2629743;
-    int days = (diff - 31556926 * years - 2629743 * months) / 86400;
+    unsigned long diff = epoch - beggining;
+    unsigned long years = diff / 31556926;
+    unsigned long months = (diff - 31556926 * years) / 2629743;
+    unsigned long days = (diff - 31556926 * years - 2629743 * months) / 86400;
 
+    queue.clear();
+    queue.push(etl::make_pair<>(&draws::blank, 0x0));
+    queue.push(etl::make_pair<>(&draws::heart, 0x00FF00));
+    queue.push(etl::make_pair<>(&draws::heart, 0x0));
+    queue.push(etl::make_pair<>(&draws::blank, 0x0));
 
-    switch(love_renderer_state) {
-        case LoveRendererState::EU:
-            words.push_back(Word::EU);
-            love_renderer_state = LoveRendererState::TE;
-        break;
-        case LoveRendererState::TE:
-            words.push_back(Word::TE);
-            love_renderer_state = LoveRendererState::AMO;
-        break;
-        case LoveRendererState::AMO:
-            words.push_back(Word::AMO);
-            love_renderer_state = LoveRendererState::HA;
-        break;
-        case LoveRendererState::HA:
-            words.push_back(Word::HA);
-            love_renderer_state = LoveRendererState::X_ANOS;
-        break;
-        case LoveRendererState::X_ANOS:
-            //words.push_back(Word::SETE);
-            number_to_words(years, words);
-            love_renderer_state = LoveRendererState::ANOS;
-        break;
-        case LoveRendererState::ANOS:
-            words.push_back(Word::ANOS);
-            love_renderer_state = LoveRendererState::X_MESES;
-        break;
-        case LoveRendererState::X_MESES:
-            number_to_words(months, words);
-            love_renderer_state = LoveRendererState::MESES;
-        break;
-        case LoveRendererState::MESES:
-            words.push_back(Word::MESES);
-            love_renderer_state = LoveRendererState::E;
-        break;
-        case LoveRendererState::E:
-            words.push_back(Word::E_0);
-            love_renderer_state = LoveRendererState::X_DIAS;
-        break;
-        case LoveRendererState::X_DIAS:
-            number_to_words(days, words);
-            love_renderer_state = LoveRendererState::DIAS;
-        break;
-        case LoveRendererState::DIAS:
-            words.push_back(Word::DIAS);
-        break;        
-    }
-    text_renderer.queue_text(words);
+    queue.push(etl::make_pair<>(&words::eu, 0x0));
+    queue.push(etl::make_pair<>(&words::te_1, 0x0));
+    queue.push(etl::make_pair<>(&words::amo_2, 0x0));
+    queue.push(etl::make_pair<>(&words::ha, 0x0));
+    number_to_words(years, &words::ano, &words::anos);
+    if(months > 0 && days == 0)
+        queue.push(etl::make_pair<>(&words::e_0, 0x0));
+    number_to_words(months, &words::mes, &words::meses);
+    if(days > 0)
+        queue.push(etl::make_pair<>(&words::e_1, 0x0));
+    number_to_words(days, &words::dia, &words::dias);
+    queue.push(etl::make_pair<>(&draws::blank, 0x0));
 }
 
-void LoveRenderer::start()
+bool LoveRenderer::refresh()
 {
-    love_renderer_state = LoveRendererState::EU;
+    etl::pair frame = queue.front();    
+    bitframe_renderer.queue_frame(frame.first, frame.second);
+    queue.pop();
+    return !queue.empty();
 }
 
-bool LoveRenderer::finished()
-{
-    return love_renderer_state == LoveRendererState::DIAS;
-}

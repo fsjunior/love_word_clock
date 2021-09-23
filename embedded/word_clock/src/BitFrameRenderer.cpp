@@ -1,12 +1,8 @@
-#include "TextRenderer.hpp"
-
-#include <etl/multi_array.h>
-#include "types.hpp"
-#include <unordered_map>
+#include "BitFrameRenderer.hpp"
 
 
 namespace words {
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> zero = {{
+	const BitFrame zero = {{
 		{0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -20,7 +16,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> um = {{
+	const BitFrame um = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -34,7 +30,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> uma = {{
+	const BitFrame uma = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -48,7 +44,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> duas = {{
+	const BitFrame duas = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -62,7 +58,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> tres = {{
+	const BitFrame tres = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
@@ -76,7 +72,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quatro = {{
+	const BitFrame quatro = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -90,7 +86,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> cinco_h = {{
+	const BitFrame cinco_h = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -104,7 +100,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> cinco_m = {{
+	const BitFrame cinco_m = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -118,7 +114,7 @@ namespace words {
 		{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> seis = {{
+	const BitFrame seis = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -132,7 +128,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> sete = {{
+	const BitFrame sete = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -146,7 +142,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> oito = {{
+	const BitFrame oito = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -160,7 +156,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> nove = {{
+	const BitFrame nove = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -174,7 +170,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dez_h = {{
+	const BitFrame dez_h = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -188,7 +184,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dez_m = {{
+	const BitFrame dez_m = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -202,7 +198,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_4 = {{
+	const BitFrame e_4 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -216,7 +212,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> onze = {{
+	const BitFrame onze = {{
 		{0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -230,7 +226,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> doze = {{
+	const BitFrame doze = {{
 		{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -244,7 +240,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> hora = {{
+	const BitFrame hora = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -258,7 +254,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> horas = {{
+	const BitFrame horas = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -272,7 +268,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-  	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_0 = {{
+  	const BitFrame e_0 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -286,7 +282,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_1 = {{
+	const BitFrame e_1 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -300,7 +296,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> vinte = {{
+	const BitFrame vinte = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -314,7 +310,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_2 = {{
+	const BitFrame e_2 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -328,7 +324,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> trinta = {{
+	const BitFrame trinta = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -342,7 +338,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quarenta = {{
+	const BitFrame quarenta = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -356,7 +352,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> cinquenta = {{
+	const BitFrame cinquenta = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -370,7 +366,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> e_3 = {{
+	const BitFrame e_3 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -384,7 +380,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};	
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> amo_1 = {{
+	const BitFrame amo_1 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -398,7 +394,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> amo_2 = {{
+	const BitFrame amo_2 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -412,7 +408,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> ha = {{
+	const BitFrame ha = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -426,7 +422,21 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> anos = {{
+	const BitFrame ano = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}};	
+	const BitFrame anos = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -440,7 +450,21 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> meses = {{
+	const BitFrame mes = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}};	
+	const BitFrame meses = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -454,7 +478,21 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dias = {{
+	const BitFrame dia = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}};	
+	const BitFrame dias = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -468,7 +506,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> eu = {{
+	const BitFrame eu = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -482,7 +520,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> te_1 = {{
+	const BitFrame te_1 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -496,7 +534,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> te_2 = {{
+	const BitFrame te_2 = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -510,7 +548,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dois = {{
+	const BitFrame dois = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -524,7 +562,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> treze = {{
+	const BitFrame treze = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -538,7 +576,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quatorze = {{
+	const BitFrame quatorze = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
@@ -552,7 +590,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> quinze = {{
+	const BitFrame quinze = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -566,7 +604,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezesseis = {{
+	const BitFrame dezesseis = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -580,7 +618,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezessete = {{
+	const BitFrame dezessete = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -594,7 +632,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezoito = {{
+	const BitFrame dezoito = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -608,7 +646,7 @@ namespace words {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}};
-	etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT> dezenove = {{
+	const BitFrame dezenove = {{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -624,77 +662,74 @@ namespace words {
 	}};
 };
 
-// Create an unordered_map of three strings (that map to strings)
-const std::unordered_map<Word, etl::multi_array<char, SCREEN_WIDTH, SCREEN_HEIGHT>> word_map = {
-	{Word::ZERO, words::zero},
-	{Word::UM, words::um},
-	{Word::UMA, words::uma},
-	{Word::DUAS, words::duas},
-	{Word::TRES, words::tres},
-	{Word::QUATRO, words::quatro},
-	{Word::CINCO_H, words::cinco_h},
-	{Word::SEIS, words::seis},
-	{Word::SETE, words::sete},
-	{Word::OITO, words::oito},
-	{Word::NOVE, words::nove},
-	{Word::DEZ_H, words::dez_h},
-	{Word::ONZE, words::onze},
-	{Word::DOZE, words::doze},
-	{Word::HORAS, words::horas},
-	{Word::HORA, words::hora},
-  	{Word::E_0, words::e_0},
-	{Word::E_1, words::e_1},
-	{Word::CINCO_M, words::cinco_m},
-	{Word::DEZ_M, words::dez_m},
-	{Word::E_4, words::e_4},	
-	{Word::VINTE, words::vinte},
-	{Word::E_2, words::e_2},
-	{Word::TRINTA, words::trinta},
-	{Word::QUARENTA, words::quarenta},
-	{Word::CINQUENTA, words::cinquenta},
-	{Word::E_3, words::e_3},	
-	{Word::AMO, words::amo_1},
-	//{Word::AMO, words::amo_2},	
-	{Word::HA, words::ha},
-	{Word::ANOS, words::anos},
-	{Word::MESES, words::meses},
-	{Word::DIAS, words::dias},
-	{Word::EU, words::eu},
-	{Word::TE, words::te_1},
-	//{Word::TE, words::te_2},	
-	{Word::DOIS, words::dois},
-	{Word::TREZE, words::treze},
-	{Word::QUATORZE, words::quatorze},
-	{Word::QUINZE, words::quinze},
-	{Word::DEZESSEIS, words::dezesseis},
-	{Word::DEZESSETE, words::dezessete},
-	{Word::DEZOITO, words::dezoito},
-	{Word::DEZENOVE, words::dezenove},
-};
+namespace draws {
+	const BitFrame blank = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}};	
 
+	const BitFrame heart = {{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},			
+		{0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0},
+		{0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
+		{1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+		{0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+		{0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
+		{0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},		
+	}};
+}
 
-TextRenderer::TextRenderer(LedEngine &led_engine) : led_engine(led_engine)
+BitFrameRenderer::BitFrameRenderer(LedEngine &led_engine) : led_engine(led_engine)
 {
 }
 
-void TextRenderer::set_color(uint8_t r, uint8_t g, uint8_t b) {
+void BitFrameRenderer::set_color(uint8_t r, uint8_t g, uint8_t b) {
     color = ((uint32_t)g << 16) | ((uint32_t)r <<  8) | b;
 }
 
-void TextRenderer::queue_text(etl::vector<Word, MAX_WORDS>& words)
+void BitFrameRenderer::queue_frame(etl::vector<const BitFrame *, MAX_WORDS>& words, uint32_t color)
 {
 	Frame result = {{ 0	}};	
+	if(color == 0)
+		color = this->color;
 
 	for(auto word : words ) {
-		auto& word_frame = word_map.at(word);
-		for(unsigned i = 0; i < word_frame.size(); i++)
-			for(unsigned j = 0; j < word_frame[i].size(); j++)
-				result[i][j] |= word_frame[i][j];
+		for(unsigned i = 0; i < word->size(); i++)
+			for(unsigned j = 0; j < word->size(); j++)
+				result[i][j] |= (*word)[i][j];
 	}
 	
 	for(unsigned i = 0 ; i < result.size(); i++)
 		for(unsigned j = 0 ; j < result[i].size(); j++)
 			result[i][j] *= color;
 
+	led_engine.queue(result, fade_transition);
+}
+
+void BitFrameRenderer::queue_frame(const BitFrame * word, uint32_t color)
+{
+	Frame result;	
+	if(color == 0)
+		color = this->color;
+
+	for(unsigned i = 0; i < word->size(); i++)
+		for(unsigned j = 0; j < word->size(); j++)
+			result[i][j] = (*word)[i][j] * color;
+	
 	led_engine.queue(result, fade_transition);
 }

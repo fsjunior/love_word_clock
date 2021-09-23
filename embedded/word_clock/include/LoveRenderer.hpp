@@ -1,35 +1,26 @@
 #ifndef __LOVE_RENDERER__
 #define __LOVE_RENDERER__
 
-#include "TextRenderer.hpp"
+#include "BitFrameRenderer.hpp"
+#include <etl/queue.h>
+#include <etl/utility.h>
 
-enum class LoveRendererState {
-    EU,
-    TE,
-    AMO,
-    HA,
-    X_ANOS,
-    ANOS,
-    X_MESES,
-    MESES,
-    E,
-    X_DIAS,
-    DIAS
-};
+
+#define LOVE_QUEUE_SIZE 20
 
 class LoveRenderer
 {
-private:
-    const int beggining = 1411786800;
-    LoveRendererState love_renderer_state = LoveRendererState::EU;
-    TextRenderer& text_renderer;
+private:    
+    const unsigned long beggining = 1411786800;
+    etl::queue<etl::pair<const BitFrame *, uint32_t>, LOVE_QUEUE_SIZE> queue;
+    BitFrameRenderer& bitframe_renderer;
     
+    void number_to_words(const int number, const BitFrame * singular, const BitFrame * plural);
 public:
-    LoveRenderer(TextRenderer& text_renderer);
-    void refresh(int epoch);  
+    LoveRenderer(BitFrameRenderer& bitframe_renderer);
+    bool refresh();  
 
-    bool finished();
-    void start();
+    void start(unsigned long epoch);
 };
 
 

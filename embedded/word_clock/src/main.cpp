@@ -1,5 +1,5 @@
 #include "LedEngine.hpp"
-#include "TextRenderer.hpp"
+#include "BitFrameRenderer.hpp"
 #include "ClockRenderer.hpp"
 #include "LoveRenderer.hpp"
 #include "Ticker.h"
@@ -20,26 +20,27 @@ NTPClient ntp_client(ntpUDP, "br.pool.ntp.org", 3600*-3, 60000);
 /* Led stuff */
 #define PIN D2
 LedEngine led_engine(FPS, D2);
-TextRenderer text_renderer(led_engine);
-ClockRenderer clock_renderer(text_renderer);
-LoveRenderer love_renderer(text_renderer);
+BitFrameRenderer bitframe_renderer(led_engine);
+ClockRenderer clock_renderer(bitframe_renderer);
+LoveRenderer love_renderer(bitframe_renderer);
 
 void clock_manager() {
-
+  static bool love_mode = true;
   static uint8_t hours = 0;
   static uint8_t minutes = 0;
 
-  minutes+=5;
+  hours = ntp_client.getHours();
+  minutes = ntp_client.getMinutes();
 
-  if(minutes == 60) {
-    minutes = 0;
-    hours++;
+  if(!love_mode && random(3600) == 0) {
+    love_mode = true;
+    love_renderer.start(ntp_client.getEpochTime());
   }
-  if(hours == 24)
-    hours = 0;
   
-  clock_renderer.refresh(hours, minutes);
-  //love_renderer.refresh(ntp_client.getEpochTime());
+  if(love_mode)
+    love_mode = love_renderer.refresh();
+  else
+    clock_renderer.refresh(hours, minutes);  
 }
 
 Ticker ticker(clock_manager, 1000, 0, MILLIS);
@@ -57,12 +58,11 @@ void setup()
   ntp_client.begin();
   ntp_client.update();  
 
-  text_renderer.set_color(100, 0, 255);
+  bitframe_renderer.set_color(100, 0, 255);
+  love_renderer.start(ntp_client.getEpochTime());
 
-  love_renderer.start();
-
-  ticker.start();
-  
+  randomSeed(ntp_client.getEpochTime());
+  ticker.start();  
 }
 
 

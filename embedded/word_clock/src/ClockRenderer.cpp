@@ -2,94 +2,94 @@
 #include <etl/vector.h>
 #include <unordered_map>
 
-ClockRenderer::ClockRenderer(TextRenderer& text_renderer): text_renderer(text_renderer)
+ClockRenderer::ClockRenderer(BitFrameRenderer& bitframe_renderer): bitframe_renderer(bitframe_renderer)
 {
 
 }
 
-const std::unordered_map<int, Word> hours_map = {
-    {0, Word::ZERO},
-    {1, Word::UMA},
-    {2, Word::DUAS},
-    {3, Word::TRES},
-    {4, Word::QUATRO},
-    {5, Word::CINCO_H},
-    {6, Word::SEIS},
-    {7, Word::SETE},
-    {8, Word::OITO},
-    {9, Word::NOVE},
-    {10, Word::DEZ_H},
-    {11, Word::ONZE},
-    {12, Word::DOZE},
-    {13, Word::UMA},
-    {14, Word::DUAS},
-    {15, Word::TRES},
-    {16, Word::QUATRO},
-    {17, Word::CINCO_H},
-    {18, Word::SEIS},
-    {19, Word::SETE},
-    {20, Word::OITO},
-    {21, Word::NOVE},
-    {22, Word::DEZ_H},
-    {23, Word::ONZE},
-    {24, Word::ZERO},
+const std::unordered_map<int, const BitFrame *> hours_map = {
+    {0, &words::zero},
+    {1, &words::uma},
+    {2, &words::duas},
+    {3, &words::tres},
+    {4, &words::quatro},
+    {5, &words::cinco_h},
+    {6, &words::seis},
+    {7, &words::sete},
+    {8, &words::oito},
+    {9, &words::nove},
+    {10, &words::dez_h},
+    {11, &words::onze},
+    {12, &words::doze},
+    {13, &words::uma},
+    {14, &words::duas},
+    {15, &words::tres},
+    {16, &words::quatro},
+    {17, &words::cinco_h},
+    {18, &words::seis},
+    {19, &words::sete},
+    {20, &words::oito},
+    {21, &words::nove},
+    {22, &words::dez_h},
+    {23, &words::onze},
+    {24, &words::zero},
 };
 
 void ClockRenderer::refresh(uint8_t hours, uint8_t minutes)
 {
-    etl::vector<Word, MAX_WORDS> words;
-    static etl::vector<Word, MAX_WORDS> last_words;
+    etl::vector<const BitFrame *, MAX_WORDS> words;
+    static etl::vector<const BitFrame *, MAX_WORDS> last_words;
 
     words.push_back(hours_map.at(hours));
 
     if(minutes < 5) {
         if(hours == 1 || hours == 13)
-            words.push_back(Word::HORA);
+            words.push_back(&words::hora);
         else
-            words.push_back(Word::HORAS);
+            words.push_back(&words::horas);
     } else {
         if(hours == 4 || hours == 16 || hours == 8 || hours == 20)
-            words.push_back(Word::E_1);
+            words.push_back(&words::e_1);
         else 
-            words.push_back(Word::E_0);       
+            words.push_back(&words::e_0);       
     }
 
     if(minutes < 5)
         ;
     else if(minutes < 10)
-        words.push_back(Word::CINCO_M);
+        words.push_back(&words::cinco_m);
     else if (minutes < 15)
-        words.push_back(Word::DEZ_M);
+        words.push_back(&words::dez_m);
     else if (minutes < 20)
-        words.push_back(Word::QUINZE);
+        words.push_back(&words::quinze);
     else if (minutes < 25)
-        words.push_back(Word::VINTE);
+        words.push_back(&words::vinte);
     else if (minutes < 30) {
-        words.push_back(Word::VINTE);
-        words.push_back(Word::E_3);
-        words.push_back(Word::CINCO_M);
+        words.push_back(&words::vinte);
+        words.push_back(&words::e_3);
+        words.push_back(&words::cinco_m);
     } else if (minutes < 35)
-        words.push_back(Word::TRINTA);
+        words.push_back(&words::trinta);
     else if (minutes < 40){
-        words.push_back(Word::TRINTA);
-        words.push_back(Word::E_2);
-        words.push_back(Word::CINCO_M);
+        words.push_back(&words::trinta);
+        words.push_back(&words::e_2);
+        words.push_back(&words::cinco_m);
     } else if (minutes < 45)
-        words.push_back(Word::QUARENTA);
+        words.push_back(&words::quarenta);
     else if (minutes < 50) {
-        words.push_back(Word::QUARENTA);
-        words.push_back(Word::E_4);
-        words.push_back(Word::CINCO_M);
+        words.push_back(&words::quarenta);
+        words.push_back(&words::e_4);
+        words.push_back(&words::cinco_m);
     } else if (minutes < 55)
-        words.push_back(Word::CINQUENTA);
+        words.push_back(&words::cinquenta);
     else  {
-        words.push_back(Word::CINQUENTA);
-        words.push_back(Word::E_4);
-        words.push_back(Word::CINCO_M);
+        words.push_back(&words::cinquenta);
+        words.push_back(&words::e_4);
+        words.push_back(&words::cinco_m);
     }
 
     if(words != last_words) {
-        text_renderer.queue_text(words);   
+        bitframe_renderer.queue_frame(words);   
         last_words = words;
     }
 }

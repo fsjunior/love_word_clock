@@ -3,13 +3,14 @@
 
 #include <stdint.h>
 #include <array>
+#include <etl/multi_array.h>
 
 
 #define SCREEN_WIDTH 12
 #define SCREEN_HEIGHT 12
 
 
-using Frame = std::array<std::array<uint32_t, SCREEN_HEIGHT>, SCREEN_WIDTH>;
+using Frame = etl::multi_array<uint32_t, SCREEN_WIDTH, SCREEN_HEIGHT>; // Store the entire pixel color
 
 
 #endif /* __WC_TYPES_H__ */
