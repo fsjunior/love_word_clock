@@ -2,19 +2,32 @@
 #include "BitFrameRenderer.hpp"
 #include "ClockRenderer.hpp"
 #include "LoveRenderer.hpp"
-#include "Ticker.h"
+#include "RESTServer.hpp"
+#include "Configurator.hpp"
+
+#include <Ticker.h>
+#include <ESP8266mDNS.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
-#include <WiFiManager.h>
+#include <ESPAsyncWiFiManager.h>         //https://github.com/tzapu/WiFiManager
+#include <ESP8266WiFi.h>
+#include <ESPAsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include <FS.h>
+#include <LittleFS.h>
 
-#define DEBUG
+
+//#define DEBUG
 
 #define FPS 15
+
+/* Server and autoconnect */
+AsyncWebServer server(80);
+DNSServer dns;
 
 /* NTP and Timezone stuff */
 WiFiUDP ntpUDP;
 NTPClient ntp_client(ntpUDP, "br.pool.ntp.org", 3600*-3, 60000);
-
 
 
 /* Led stuff */
@@ -24,8 +37,9 @@ BitFrameRenderer bitframe_renderer(led_engine);
 ClockRenderer clock_renderer(bitframe_renderer);
 LoveRenderer love_renderer(bitframe_renderer);
 
+bool love_mode = false;
+
 void clock_manager() {
-  static bool love_mode = true;
   static uint8_t hours = 0;
   static uint8_t minutes = 0;
 
@@ -46,32 +60,49 @@ void clock_manager() {
 Ticker ticker(clock_manager, 1000, 0, MILLIS);
 
 
+/* Config */
+Configurator configurator(bitframe_renderer, ntp_client);
+RESTServer rest_server(server, configurator);
+
 void setup() 
 {
 #ifdef DEBUG
   Serial.begin(115200);
 #endif  
 
-  WiFiManager wifiManager;
+  AsyncWiFiManager wifiManager(&server, &dns);
   wifiManager.autoConnect("AutoConnectAP");
+
+  MDNS.begin("love");
+
+  LittleFS.begin();
+  configurator.load_time_offset();
+
+  rest_server.begin();
 
   ntp_client.begin();
   ntp_client.update();  
 
-  bitframe_renderer.set_color(100, 0, 255);
-  love_renderer.start(ntp_client.getEpochTime());
-
   randomSeed(ntp_client.getEpochTime());
+
+  if(random(10) == 0) {
+    love_renderer.start(ntp_client.getEpochTime());
+    love_mode = true;
+  }
+
+  configurator.load_color();
+
   ticker.start();  
 }
 
 
 void loop() {
+  MDNS.update();  
   ticker.update();
   led_engine.refresh();
-#ifdef DEBUG  
-  Serial.print("Loop ");
-  Serial.println(ESP.getFreeHeap());
-#endif
+// #ifdef DEBUG  
+//   Serial.print("Loop ");
+//   Serial.println(ESP.getFreeHeap());
+// #endif
 }
 

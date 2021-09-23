@@ -698,7 +698,7 @@ BitFrameRenderer::BitFrameRenderer(LedEngine &led_engine) : led_engine(led_engin
 {
 }
 
-void BitFrameRenderer::set_color(uint8_t r, uint8_t g, uint8_t b) {
+void BitFrameRenderer::set_default_color(uint8_t r, uint8_t g, uint8_t b) {
     color = ((uint32_t)g << 16) | ((uint32_t)r <<  8) | b;
 }
 

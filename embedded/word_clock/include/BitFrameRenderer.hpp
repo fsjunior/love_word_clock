@@ -72,7 +72,7 @@ private:
 public:
     BitFrameRenderer(LedEngine& led_engine);
 
-    void set_color(uint8_t r, uint8_t g, uint8_t b);
+    void set_default_color(uint8_t r, uint8_t g, uint8_t b);
     void queue_frame(etl::vector<const BitFrame *, MAX_WORDS>& words, uint32_t color = 0);
     void queue_frame(const BitFrame * word, uint32_t color = 0);
 };
