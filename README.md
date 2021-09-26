@@ -1,21 +1,17 @@
 # ❤️ Love Word Clock ❤️
 
-DIY project of a Word Clock in portuguese.
+Love Word Clock is a special word clock in portuguese created as a gift to my girlfriend to celebrate our seventh anniversary. 
 
 ![Picture of the Word Clock over my desk](https://github.com/fsjunior/word_clock/blob/main/images/clock.jpg?raw=true)
 
-This project was created as a gift to my girlfriend to celebrate our 7 years anniversary.
-
 Who said geeks can't be romantic?
-
 
 # Features
 
-- Automagically connects itself to internet and fetch the current time;
-- Shows the clock;
-- Shows how long since I started to love Josi;
-- Cool fade effects between the displays;
-- REST API for remote configuration;
+- Automatically connects to the internet and fetch the current time;
+- Calculates and shows how long since I started to love Josi (2014-09-27);
+- Cool transition fade effects;
+- REST API for remote configuration; 
 
 
 # Material Needed
