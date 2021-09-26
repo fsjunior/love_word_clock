@@ -6,6 +6,8 @@ Love Word Clock is a special word clock in portuguese created as a gift to my gi
 
 Who said geeks can't be romantic?
 
+For more pictures, please check my [website](https://chico.codes/work/word-clock).
+
 # Features
 
 - Automatically connects to the internet and fetch the current time;
